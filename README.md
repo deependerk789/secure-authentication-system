@@ -1,12 +1,26 @@
 # 🔐 Secure Authentication System
 
-\<p align="center">   \<img src="[https://capsule-render.vercel.app/api?type=rect&color=0:0f172a,100:1d4ed8&height=180&section=header&text=SecureAuth&fontSize=52&fontColor=ffffff&fontAlignY=42&desc=Secure%20Authentication%20with%20Flask&descAlignY=68&descSize=18](https://capsule-render.vercel.app/api?type=rect\&color=0:0f172a,100:1d4ed8\&height=180\&section=header\&text=SecureAuth\&fontSize=52\&fontColor=ffffff\&fontAlignY=42\&desc=Secure%20Authentication%20with%20Flask\&descAlignY=68\&descSize=18)" width="100%" alt="SecureAuth project banner"/> \</p>
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=rect&color=0:0f172a,100:1d4ed8&height=180&section=header&text=SecureAuth&fontSize=52&fontColor=ffffff&fontAlignY=42&desc=Secure%20Authentication%20with%20Flask&descAlignY=68&descSize=18" width="100%" alt="SecureAuth project banner"/>
+</p>
 
-\<p align="center">   A Flask-based authentication project focused on password security, protected sessions, CSRF defense and two-factor authentication. \</p>
+<p align="center">
+  A Flask-based authentication project focused on password security, protected sessions, CSRF defense and two-factor authentication.
+</p>
 
-\<p align="center">   \<img src="[https://img.shields.io/badge/Python-3.x-3776AB?logo=python&logoColor=white](https://img.shields.io/badge/Python-3.x-3776AB?logo=python\&logoColor=white)" alt="Python"/>   \<img src="[https://img.shields.io/badge/Flask-Web%20Framework-black?logo=flask](https://img.shields.io/badge/Flask-Web%20Framework-black?logo=flask)" alt="Flask"/>   \<img src="[https://img.shields.io/badge/Database-SQLite-003B57?logo=sqlite&logoColor=white](https://img.shields.io/badge/Database-SQLite-003B57?logo=sqlite\&logoColor=white)" alt="SQLite"/>   \<img src="[https://img.shields.io/badge/Password%20Hashing-Argon2id-success](https://img.shields.io/badge/Password%20Hashing-Argon2id-success)" alt="Argon2id"/>   \<img src="[https://img.shields.io/badge/Authentication-TOTP-blueviolet](https://img.shields.io/badge/Authentication-TOTP-blueviolet)" alt="TOTP"/> \</p>
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.x-3776AB?logo=python&logoColor=white" alt="Python"/>
+  <img src="https://img.shields.io/badge/Flask-Web%20Framework-black?logo=flask" alt="Flask"/>
+  <img src="https://img.shields.io/badge/Database-SQLite-003B57?logo=sqlite&logoColor=white" alt="SQLite"/>
+  <img src="https://img.shields.io/badge/Password%20Hashing-Argon2id-success" alt="Argon2id"/>
+  <img src="https://img.shields.io/badge/Authentication-TOTP-blueviolet" alt="TOTP"/>
+</p>
 
-\<p align="center">   \<a href="[https://github.com/deependerk789/secure-authentication-system](https://github.com/deependerk789/secure-authentication-system)">📂 Source Code\</a>   &nbsp; • &nbsp;   \<a href="[https://github.com/deependerk789](https://github.com/deependerk789)">👨‍💻 GitHub Profile\</a> \</p>
+<p align="center">
+  <a href="https://github.com/deependerk789/secure-authentication-system">📂 Source Code</a>
+  &nbsp; • &nbsp;
+  <a href="https://github.com/deependerk789">👨‍💻 GitHub Profile</a>
+</p>
 
 ---
 
@@ -18,20 +32,22 @@ It focuses on password hashing, session security, CSRF protection, two-factor au
 
 ## ✨ Key Features
 
-| Feature                      | Description                                         |
-| ---------------------------- | --------------------------------------------------- |
-| 🔑 Authentication            | User sign-in and authentication flows               |
-| 🔒 Argon2id                  | Secure password hashing                             |
-| 🛡️ CSRF Protection          | Helps protect forms from cross-site request forgery |
-| ⏱️ Session Security          | Signed, time-limited sessions                       |
-| 🔐 Two-Factor Authentication | TOTP-based verification                             |
-| 📝 Audit Logging             | Records authentication activity                     |
-| 📊 Security Dashboard        | Displays security configuration status              |
-| 🧪 Automated Tests           | Test suite for authentication functionality         |
+| Feature | Description |
+|---|---|
+| 🔑 Authentication | User sign-in and authentication flows |
+| 🔒 Argon2id | Secure password hashing |
+| 🛡️ CSRF Protection | Helps protect forms from cross-site request forgery |
+| ⏱️ Session Security | Signed, time-limited sessions |
+| 🔐 Two-Factor Authentication | TOTP-based verification |
+| 📝 Audit Logging | Records authentication activity |
+| 📊 Security Dashboard | Displays security configuration status |
+| 🧪 Automated Tests | Test suite for authentication functionality |
 
 ## 🛠️ Technology Stack
 
-\<p>   \<img src="[https://skillicons.dev/icons?i=python,flask,sqlite,html,css,git,github](https://skillicons.dev/icons?i=python,flask,sqlite,html,css,git,github)" alt="Python Flask SQLite HTML CSS Git GitHub" /> \</p>
+<p>
+  <img src="https://skillicons.dev/icons?i=python,flask,sqlite,html,css,git,github" alt="Python Flask SQLite HTML CSS Git GitHub" />
+</p>
 
 - **Language:** Python
 - **Framework:** Flask
@@ -47,19 +63,22 @@ The application screenshot will be added here after uploading the actual login p
 ## 🚀 Getting Started
 
 ### 1. Clone the repository
-```
+
+```bash
 git clone https://github.com/deependerk789/secure-authentication-system.git
 cd secure-authentication-system
 ```
 
 ### 2. Create a virtual environment
-```
+
+```powershell
 python -m venv .venv
 .venv\Scripts\Activate.ps1
 ```
 
 ### 3. Install dependencies
-```
+
+```bash
 pip install -r requirements.txt
 ```
 
@@ -72,14 +91,16 @@ Use `.env.example` as a reference and configure the environment variables requir
 ### 5. Run the application
 
 Use the entry point configured in the project. If the entry point is `app.py`, run:
-```
+
+```bash
 python app.py
 ```
 
 Open the local address displayed in the terminal.
 
 ### 6. Run tests
-```
+
+```bash
 python -m pytest -q
 ```
 
@@ -112,7 +133,7 @@ This project demonstrates practical concepts related to:
 
 ## 👨‍💻 Author
 
-**Deepender Kumar**\
+**Deepender Kumar**  
 B.Tech Cybersecurity Student
 
 - GitHub: [@deependerk789](https://github.com/deependerk789)
@@ -120,6 +141,6 @@ B.Tech Cybersecurity Student
 
 ---
 
-\<p align="center">   ⭐ If you find this project interesting, consider starring the repository! \</p>
-
-tumne ye shi banaya h but ek dikkat mera ko background plus prject keander waki phone chahiye taki aur acha lage toh tum change karo
+<p align="center">
+  ⭐ If you find this project interesting, consider starring the repository!
+</p>
