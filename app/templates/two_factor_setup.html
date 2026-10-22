@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Set up email two-factor · SecureAuth{% endblock %}
+{% block page %}
+<section class="auth-card auth-card-wide glass tilt reveal">
+  <div class="eyebrow"><span class="eyebrow-line" aria-hidden="true"></span> EMAIL SECURITY</div>
+  <h1>Enable two-factor authentication</h1>
+  <p class="subheading">Confirm your email address with a six-digit code to add an extra layer of protection.</p>
+  <ol class="steps">
+    <li><strong>Send a verification code</strong><p>We will send a code to <strong>{{ user['email'] }}</strong>. It expires in five minutes.</p>
+      <form method="post" action="{{ url_for('auth.two_factor_setup') }}"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><input type="hidden" name="action" value="send"><button class="primary-button" type="submit">Send email OTP</button></form>
+    </li>
+    <li><strong>Verify your code</strong>
+      <form method="post" action="{{ url_for('auth.two_factor_setup') }}"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><input type="hidden" name="action" value="verify"><label for="code">Six-digit email code</label><input id="code" name="code" type="text" inputmode="numeric" pattern="[0-9]{6}" autocomplete="one-time-code" maxlength="6" class="code-input" placeholder="Enter OTP" required><button class="primary-button" type="submit">Verify and enable</button></form>
+    </li>
+  </ol>
+  <p class="alt"><a href="{{ url_for('auth.dashboard') }}">Back to the dashboard</a></p>
+</section>
+{% endblock %}

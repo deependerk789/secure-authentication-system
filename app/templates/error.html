@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}{{ title }} &middot; SecureAuth{% endblock %}
+{% block page %}
+<section class="auth-card glass tilt reveal">
+  <div class="eyebrow"><span class="eyebrow-line" aria-hidden="true"></span> {{ code }}</div>
+  <h1>{{ title }}</h1>
+  <p class="subheading">{{ message }}</p>
+  <p class="alt"><a href="{{ url_for('auth.index') }}">Back to safety</a></p>
+</section>
+{% endblock %}

@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% from "_icons.html" import icon %}
+{% block title %}Account &middot; SecureAuth{% endblock %}
+{% block main_class %}dashboard-shell{% endblock %}
+{% block page %}
+<section class="dash-heading reveal">
+  <div>
+    <span class="eyebrow">ACCOUNT</span>
+    <h1>Account settings</h1>
+    <p class="dash-subtitle">Review your details and the sessions recorded against this account.</p>
+  </div>
+</section>
+
+<section class="dashboard-grid">
+  <article class="security-card account-card glass tilt reveal">
+    <div class="card-topline">
+      <div>
+        <span class="eyebrow">DETAILS</span>
+        <h3>Your account</h3>
+      </div>
+      <span class="icon-tile violet" aria-hidden="true">{{ icon('user', 20) }}</span>
+    </div>
+    <div class="account-detail">
+      <span class="detail-label">E-mail address</span>
+      <strong class="email-value">{{ user['email'] }}</strong>
+    </div>
+    <div class="account-detail">
+      <span class="detail-label">Member since</span>
+      <strong>{{ user['created_at'][:10] if user['created_at'] else 'Not available' }}</strong>
+    </div>
+    <div class="account-detail">
+      <span class="detail-label">Address verified</span>
+      <strong>{{ 'Yes' if user['email_verified'] else 'No' }}</strong>
+    </div>
+    <div class="account-detail">
+      <span class="detail-label">Two-factor</span>
+      <strong>{{ 'Enabled' if user['two_factor_enabled'] else 'Not enabled' }}</strong>
+    </div>
+  </article>
+
+  <article class="security-card glass tilt reveal">
+    <div class="card-topline">
+      <div>
+        <span class="eyebrow">SECURITY</span>
+        <h3>Two-factor authentication</h3>
+      </div>
+      <span class="icon-tile cyan" aria-hidden="true">{{ icon('phone', 20) }}</span>
+    </div>
+    {% if user['two_factor_enabled'] %}
+      <p class="card-note">Two-factor is on. Turning it off needs your password.</p>
+      <form method="post" action="{{ url_for('auth.two_factor_disable') }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <label for="disable_password">Confirm with your password</label>
+        <input id="disable_password" name="password" type="password" autocomplete="current-password" required>
+        <button class="secondary-button" type="submit">Turn off two-factor</button>
+      </form>
+    {% else %}
+      <p class="card-note">Two-factor is not set up on this account.</p>
+      <a class="secondary-button" href="{{ url_for('auth.two_factor_setup') }}">Set up two-factor</a>
+    {% endif %}
+  </article>
+</section>
+
+<section class="activity-panel glass reveal">
+  <div class="activity-heading">
+    <div>
+      <span class="eyebrow">AUDIT</span>
+      <h2>Account activity</h2>
+    </div>
+    <span class="activity-count">{{ events|length }} event{% if events|length != 1 %}s{% endif %}</span>
+  </div>
+  {% if events %}
+    <div class="activity-table-wrap">
+      <table class="activity-table">
+        <thead>
+          <tr>
+            <th scope="col">Status</th>
+            <th scope="col">Event</th>
+            <th scope="col">Date &amp; time (UTC)</th>
+            <th scope="col">Address</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for event in events %}
+          <tr>
+            <td><span class="event-status {{ 'success' if event['event'] == 'success' else ('warning' if event['event'] == 'locked' else ('neutral' if event['event'] == 'logout' else 'danger')) }}"><span class="event-dot"></span> {{ event['event'] | replace('_', ' ') | capitalize }}</span></td>
+            <td>{{ 'Successful sign-in' if event['event'] == 'success' else ('Sign-in blocked by lockout' if event['event'] == 'locked' else ('Signed out' if event['event'] == 'logout' else ('Two-factor code rejected' if event['event'] == 'two_factor_failure' else 'Unsuccessful sign-in'))) }}</td>
+            <td class="event-time">{{ event['created_at'].replace('T', ' ')[:19] if event['created_at'] else '—' }}</td>
+            <td class="event-time">{{ event['ip_address'] if event['ip_address'] else '—' }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <div class="empty-activity">
+      <span class="empty-icon" aria-hidden="true">{{ icon('refresh', 22) }}</span>
+      <strong>No activity recorded</strong>
+    </div>
+  {% endif %}
+</section>
+
+<section class="panel danger-zone glass tilt reveal">
+  <div class="card-topline">
+    <div>
+      <span class="eyebrow">DANGER ZONE</span>
+      <h2>Delete this account</h2>
+    </div>
+    <span class="icon-tile danger" aria-hidden="true">{{ icon('alert', 20) }}</span>
+  </div>
+  <p class="card-note">Deleting removes your profile, your password and the sign-in log.
+    It cannot be undone.</p>
+  <form method="post" action="{{ url_for('auth.account') }}">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <input type="hidden" name="action" value="delete">
+    <label for="delete_password">Confirm with your password</label>
+    <input id="delete_password" name="password" type="password" autocomplete="current-password" required>
+    <button class="danger-button" type="submit">Delete my account</button>
+  </form>
+</section>
+{% endblock %}

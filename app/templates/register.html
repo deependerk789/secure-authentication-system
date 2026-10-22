@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% from "_icons.html" import icon %}
+{% block title %}Create account &middot; SecureAuth{% endblock %}
+{% block page %}
+<section class="auth-card glass tilt reveal">
+  <div class="eyebrow"><span class="eyebrow-line" aria-hidden="true"></span> GET STARTED</div>
+  <h1>Create your account</h1>
+  <p class="subheading">Pick a strong, unique passphrase. You will confirm the address next.</p>
+
+  <form method="post" action="{{ url_for('auth.register') }}" novalidate>
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+    <label for="email">E-mail address</label>
+    <input id="email" name="email" type="email" autocomplete="email"
+           maxlength="254" required spellcheck="false">
+
+    <label for="password">Password</label>
+    <div class="password-wrap">
+      <input id="password" name="password" type="password" autocomplete="new-password"
+             minlength="10" maxlength="128" aria-describedby="password-help strength-text" required>
+      <button class="toggle-password" type="button" data-toggle-password="password"
+              aria-label="Show password">Show</button>
+    </div>
+
+    <div class="strength-track" aria-hidden="true"><span id="strength-fill"></span></div>
+    <div class="strength-row">
+      <span id="strength-text">Password strength: not checked</span>
+      <span id="strength-score">0%</span>
+    </div>
+    <small id="password-help">At least 10 characters with a letter and a number. A long passphrase is stronger.</small>
+
+    <label for="confirm_password">Confirm password</label>
+    <input id="confirm_password" name="confirm_password" type="password" autocomplete="new-password"
+           minlength="10" maxlength="128" required>
+
+    <button class="primary-button" type="submit">Create account {{ icon('arrow', 17) }}</button>
+  </form>
+
+  <p class="alt">Already registered? <a href="{{ url_for('auth.login') }}">Log in</a></p>
+  <div class="trust-note">{{ icon('check', 15) }} Your password is hashed before it is stored</div>
+</section>
+{% endblock %}

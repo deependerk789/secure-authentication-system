@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% from "_icons.html" import icon %}
+{% block title %}Log in &middot; SecureAuth{% endblock %}
+{% block page %}
+<section class="auth-card glass tilt reveal">
+  <div class="eyebrow"><span class="eyebrow-line" aria-hidden="true"></span> YOUR SECURE SPACE</div>
+  <h1>Welcome back</h1>
+  <p class="subheading">Sign in to review your account security.</p>
+
+  <form method="post" action="{{ url_for('auth.login') }}" novalidate>
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+    <label for="email">E-mail address</label>
+    <input id="email" name="email" type="email" autocomplete="username"
+           maxlength="254" required spellcheck="false">
+
+    <label for="password">Password</label>
+    <div class="password-wrap">
+      <input id="password" name="password" type="password" autocomplete="current-password" required>
+      <button class="toggle-password" type="button" data-toggle-password="password"
+              aria-label="Show password">Show</button>
+    </div>
+
+    <button class="primary-button" type="submit">Log in securely {{ icon('arrow', 17) }}</button>
+  </form>
+
+  <p class="alt">No account yet? <a href="{{ url_for('auth.register') }}">Create one</a></p>
+  <div class="trust-note">{{ icon('check', 15) }} Passwords are verified with Argon2id</div>
+</section>
+{% endblock %}

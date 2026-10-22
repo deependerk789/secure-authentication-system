@@ -1,0 +1,32 @@
+<div class="sa-help" id="sa-help-agent" data-help-page="{{ request.endpoint or request.path }}">
+  <button class="sa-help-launcher" id="sa-help-open" type="button" aria-label="Open SecureAuth help assistant" aria-expanded="false" aria-controls="sa-help-panel">
+    <span class="sa-help-orb" aria-hidden="true"><span class="sa-help-orb-core"></span><span class="sa-help-orb-ring"></span><span class="sa-help-orb-ring sa-help-orb-ring--two"></span></span>
+    <span class="sa-help-launcher-pulse" aria-hidden="true"></span>
+  </button>
+  <section class="sa-help-panel" id="sa-help-panel" aria-label="SecureAuth Guide" hidden>
+    <header class="sa-help-header">
+      <div class="sa-help-avatar" aria-hidden="true"><span class="sa-help-avatar-core"></span></div>
+      <div class="sa-help-heading"><strong>SecureAuth Guide</strong><span><i class="sa-help-status-dot"></i> Ready to help</span></div>
+      <button class="sa-help-icon-btn" id="sa-help-minimize" type="button" aria-label="Minimize help panel">−</button>
+    </header>
+    <div class="sa-help-content" id="sa-help-content" aria-live="polite">
+      <div class="sa-help-message sa-help-message--bot">
+        <span class="sa-help-message-label">SECUREAUTH ASSISTANT</span>
+        <p>Hi! 👋 Welcome to SecureAuth. I can guide you through account creation, email verification, login, OTP, and security settings. What would you like help with?</p>
+      </div>
+      <div class="sa-help-quick-actions" id="sa-help-quick-actions">
+        <button type="button" data-help-topic="register"><span>＋</span>Create account</button>
+        <button type="button" data-help-topic="verify"><span>✉</span>Verify email</button>
+        <button type="button" data-help-topic="login"><span>⌁</span>Login &amp; OTP</button>
+        <button type="button" data-help-topic="security"><span>◇</span>Dashboard &amp; security</button>
+      </div>
+      <div class="sa-help-tour-card" id="sa-help-tour-card" hidden></div>
+    </div>
+    <form class="sa-help-composer" id="sa-help-form">
+      <label class="sa-help-sr-only" for="sa-help-input">Ask SecureAuth Guide</label>
+      <input id="sa-help-input" name="message" type="text" placeholder="Ask how to use SecureAuth…" autocomplete="off" maxlength="300">
+      <button type="submit" aria-label="Send message"><span>➤</span></button>
+    </form>
+    <footer class="sa-help-footer">Guidance only · Never share your password or OTP</footer>
+  </section>
+</div>

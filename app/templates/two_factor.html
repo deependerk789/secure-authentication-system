@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Verify login · SecureAuth{% endblock %}
+{% block page %}
+<section class="auth-card auth-card-wide glass tilt reveal">
+  <div class="eyebrow"><span class="eyebrow-line" aria-hidden="true"></span> EMAIL SECURITY</div>
+  <h1>Verify your login</h1>
+  <p class="subheading">Enter the six-digit verification code sent to <strong>{{ email }}</strong>.</p>
+  <form method="post" action="{{ url_for('auth.two_factor') }}">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <label for="code">Email verification code</label>
+    <input id="code" name="code" type="text" inputmode="numeric" pattern="[0-9]{6}" autocomplete="one-time-code" maxlength="6" class="code-input" placeholder="Enter 6-digit OTP" required autofocus>
+    <button class="primary-button" type="submit">Verify and log in</button>
+  </form>
+  <p class="alt">Code expires in five minutes. Check your inbox and spam folder.</p>
+</section>
+{% endblock %}

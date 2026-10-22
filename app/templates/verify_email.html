@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% from "_icons.html" import icon %}
+{% block title %}Confirm your address &middot; SecureAuth{% endblock %}
+{% block page %}
+<section class="auth-card glass tilt reveal">
+  <div class="eyebrow"><span class="eyebrow-line" aria-hidden="true"></span> ONE LAST STEP</div>
+  <h1>Confirm your address</h1>
+  {% if just_registered %}
+    <p class="subheading">Your account is ready. Use the link below to confirm your e-mail address.</p>
+  {% else %}
+    <p class="subheading">Use the link below to confirm your e-mail address.</p>
+  {% endif %}
+
+  {% if token %}
+    <form method="post" action="{{ url_for('auth.verify_email') }}">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <input type="hidden" name="token" value="{{ token }}">
+      <button class="primary-button" type="submit">Confirm this address {{ icon('arrow', 17) }}</button>
+    </form>
+    <details class="dev-details">
+      <summary>Show the link</summary>
+      <p class="dev-link"><a href="{{ url_for('auth.verify_email', token=token) }}">Open the confirmation link</a></p>
+    </details>
+  {% else %}
+    <p class="alt">Open the confirmation link from your e-mail to finish.</p>
+  {% endif %}
+
+  <p class="alt"><a href="{{ url_for('auth.dashboard') }}">Back to the dashboard</a></p>
+</section>
+{% endblock %}

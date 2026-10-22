@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="SecureAuth — password hashing, e-mail confirmation and two-factor authentication.">
+  <title>{% block title %}SecureAuth{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/help_bot.css') }}">
+  <script src="{{ url_for('static', filename='theme-boot.js') }}"></script>
+  <script src="{{ url_for('static', filename='app.js') }}" defer></script>
+</head>
+<body>
+  <div class="aurora" aria-hidden="true">
+    <span class="ambient ambient-one"></span>
+    <span class="ambient ambient-two"></span>
+    <span class="ambient ambient-three"></span>
+  </div>
+  <div class="grid-floor" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <a class="brand" href="{{ url_for('auth.index') }}">
+      <span class="brand-mark" aria-hidden="true">S</span>
+      <span>Secure<span class="brand-light">Auth</span></span>
+    </a>
+    <nav class="topnav" aria-label="Main">
+      {% if session.get('user_id') %}
+        <a href="{{ url_for('auth.dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('auth.change_password') }}">Password</a>
+        <a href="{{ url_for('auth.account') }}">Account</a>
+        <form method="post" action="{{ url_for('auth.logout') }}" class="inline-form">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <button type="submit" class="link-button">Log out</button>
+        </form>
+      {% else %}
+        <a href="{{ url_for('auth.login') }}">Log in</a>
+        <a href="{{ url_for('auth.register') }}" class="link-emphasis">Create account</a>
+      {% endif %}
+      <button class="theme-toggle" type="button" data-theme-toggle
+              aria-label="Switch to the light theme">
+        <svg class="icon-moon" width="19" height="19" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true"><path d="M20.6 13.4A8.6 8.6 0 1 1 10.6 3.4a6.7 6.7 0 0 0 10 10Z"/></svg>
+        <svg class="icon-sun" width="19" height="19" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.4v2.2M12 19.4v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.4 12h2.2M19.4 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg>
+      </button>
+    </nav>
+  </header>
+
+  <main class="{% block main_class %}auth-shell{% endblock %}">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-stack" aria-live="polite">
+          {% for category, msg in messages %}
+            <p class="msg {{ category }}" role="alert">{{ msg }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    {% block page %}{% endblock %}
+  </main>
+
+  <footer class="footer">
+    <p>SecureAuth &middot; Argon2id password hashing &middot; CSRF protection &middot; audited sign-in log</p>
+  </footer>
+  {% include "_help_agent.html" %}
+  <script src="{{ url_for('static', filename='js/help_bot.js') }}" defer></script>
+</body>
+</html>

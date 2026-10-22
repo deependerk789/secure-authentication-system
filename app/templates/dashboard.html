@@ -1,0 +1,227 @@
+{% extends "base.html" %}
+{% from "_icons.html" import icon %}
+{% block title %}Security dashboard &middot; SecureAuth{% endblock %}
+{% block main_class %}dashboard-shell{% endblock %}
+{% block page %}
+<section class="dash-heading reveal">
+  <div>
+    <span class="eyebrow">SECUREAUTH / OVERVIEW</span>
+    <h1>Your security dashboard</h1>
+    <p class="dash-subtitle">Account status, open recommendations and recent sign-in activity.</p>
+  </div>
+</section>
+
+<section class="welcome-banner reveal">
+  <div class="welcome-icon" aria-hidden="true">{{ icon('check', 24) }}</div>
+  <div class="welcome-copy">
+    <span class="status-badge success"><span class="status-dot"></span> Authenticated session</span>
+    <h2>Welcome back!</h2>
+    <p>Signed in as <strong>{{ user['email'] }}</strong>.</p>
+  </div>
+  <div class="banner-decoration" aria-hidden="true">S</div>
+</section>
+
+<section class="dashboard-grid" aria-label="Security overview">
+  <article class="score-card glass tilt reveal">
+    <div class="card-topline">
+      <div>
+        <span class="eyebrow">ACCOUNT PROTECTION</span>
+        <h2>Security score</h2>
+      </div>
+      <span class="icon-tile purple" aria-hidden="true">{{ icon('shield', 20) }}</span>
+    </div>
+
+    <div class="score-layout">
+      <div class="score-ring" data-ring="{{ security_score }}">
+        <svg class="ring-svg" viewBox="0 0 120 120" aria-hidden="true">
+          <defs>
+            <linearGradient id="ringGradient" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#6d8cff"/>
+              <stop offset="55%" stop-color="#8b5cf6"/>
+              <stop offset="100%" stop-color="#22d3ee"/>
+            </linearGradient>
+          </defs>
+          <circle class="ring-track" cx="60" cy="60" r="52"/>
+          <circle class="ring-fill" cx="60" cy="60" r="52"/>
+        </svg>
+        <div class="ring-value"><span data-count="{{ security_score }}">0</span><small>/100</small></div>
+        <span class="ring-caption">{{ score_label }}</span>
+      </div>
+
+      <div class="score-breakdown">
+        <div class="breakdown-row">
+          <div class="breakdown-head">
+            <span>Password strength</span>
+            <strong>{{ user['password_strength'] or 0 }}/100</strong>
+          </div>
+          <div class="score-track"><span class="score-fill" data-score="{{ user['password_strength'] or 0 }}"></span></div>
+        </div>
+        <div class="breakdown-row">
+          <div class="breakdown-head">
+            <span>Address confirmed</span>
+            <strong>{{ 'Yes' if user['email_verified'] else 'No' }}</strong>
+          </div>
+          <div class="score-track"><span class="score-fill" data-score="{{ 100 if user['email_verified'] else 0 }}"></span></div>
+        </div>
+        <div class="breakdown-row">
+          <div class="breakdown-head">
+            <span>Two-factor authentication</span>
+            <strong>{{ 'On' if user['two_factor_enabled'] else 'Off' }}</strong>
+          </div>
+          <div class="score-track"><span class="score-fill" data-score="{{ 100 if user['two_factor_enabled'] else 0 }}"></span></div>
+        </div>
+      </div>
+    </div>
+
+    <p class="card-note">
+      Built from your password strength, address confirmation, two-factor authentication and
+      how recently you changed your password.
+    </p>
+  </article>
+
+  <article class="security-card glass tilt reveal">
+    <div class="card-topline">
+      <div>
+        <span class="eyebrow">PASSWORD</span>
+        <h3>Password strength</h3>
+      </div>
+      <span class="icon-tile blue" aria-hidden="true">{{ icon('key', 20) }}</span>
+    </div>
+    <div class="metric-value">{{ password_label }}</div>
+    <p class="card-note">Strength score: {{ user['password_strength'] or 0 }}/100</p>
+    <div class="mini-track">
+      <span class="mini-fill" data-score="{{ user['password_strength'] or 0 }}"></span>
+    </div>
+  </article>
+
+  <article class="security-card glass tilt reveal">
+    <div class="card-topline">
+      <div>
+        <span class="eyebrow">EMAIL STATUS</span>
+        <h3>E-mail verification</h3>
+      </div>
+      <span class="icon-tile green" aria-hidden="true">{{ icon('mail', 20) }}</span>
+    </div>
+    {% if user['email_verified'] %}
+      <span class="status-badge success">Verified</span>
+      <p class="card-note">Your address is confirmed, so it can be used for recovery.</p>
+    {% else %}
+      <span class="status-badge warning">Not verified</span>
+      <p class="card-note">Confirm your address to secure password recovery.</p>
+      <form method="post" action="{{ url_for('auth.resend_verification') }}" class="inline-form">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <button type="submit" class="link-button">Send a new confirmation link</button>
+      </form>
+    {% endif %}
+  </article>
+
+  <article class="security-card glass tilt reveal">
+    <div class="card-topline">
+      <div>
+        <span class="eyebrow">SIGN-IN SECURITY</span>
+        <h3>Two-factor authentication</h3>
+      </div>
+      <span class="icon-tile cyan" aria-hidden="true">{{ icon('phone', 20) }}</span>
+    </div>
+    {% if user['two_factor_enabled'] %}
+      <span class="status-badge success">Enabled</span>
+      <p class="card-note">A one-time code is required after every sign-in.</p>
+    {% else %}
+      <span class="status-badge warning">Not enabled</span>
+      <p class="card-note">Add a second step so a stolen password is not enough.</p>
+      <a class="link-button" href="{{ url_for('auth.two_factor_setup') }}">Set up two-factor</a>
+    {% endif %}
+  </article>
+</section>
+
+{% if recommendations %}
+<section class="panel glass tilt reveal">
+  <div class="card-topline">
+    <div>
+      <span class="eyebrow">NEXT STEPS</span>
+      <h2>Open recommendations</h2>
+    </div>
+    <span class="icon-tile violet" aria-hidden="true">{{ icon('spark', 20) }}</span>
+  </div>
+  <ul class="recommendation-list">
+    {% for item in recommendations %}
+      <li class="recommendation {{ item.level }}">
+        <div>
+          <strong>{{ item.title }}</strong>
+          <p>{{ item.detail }}</p>
+        </div>
+        {% if item.action == 'verify_email' %}
+          <a class="secondary-button" href="{{ url_for('auth.resend_verification') }}">Confirm address</a>
+        {% elif item.action == 'two_factor_setup' %}
+          <a class="secondary-button" href="{{ url_for('auth.two_factor_setup') }}">Set up 2FA</a>
+        {% else %}
+          <a class="secondary-button" href="{{ url_for('auth.change_password') }}">Change password</a>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}
+
+<section class="activity-panel glass reveal">
+  <div class="activity-heading">
+    <div>
+      <span class="eyebrow">RECENT EVENTS</span>
+      <h2>Sign-in activity</h2>
+      <p>The last ten events recorded against your account.</p>
+    </div>
+    <span class="activity-count">{{ events|length }} event{% if events|length != 1 %}s{% endif %}</span>
+  </div>
+
+  {% if events %}
+    <div class="activity-table-wrap">
+      <table class="activity-table">
+        <thead>
+          <tr>
+            <th scope="col">Status</th>
+            <th scope="col">Event</th>
+            <th scope="col">Date &amp; time (UTC)</th>
+            <th scope="col">Address</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for event in events %}
+          <tr>
+            <td>
+              {% if event['event'] == 'success' %}
+                <span class="event-status success"><span class="event-dot"></span> Success</span>
+              {% elif event['event'] == 'locked' %}
+                <span class="event-status warning"><span class="event-dot"></span> Locked</span>
+              {% elif event['event'] == 'logout' %}
+                <span class="event-status neutral"><span class="event-dot"></span> Logged out</span>
+              {% elif event['event'] == 'two_factor_failure' %}
+                <span class="event-status danger"><span class="event-dot"></span> Bad code</span>
+              {% else %}
+                <span class="event-status danger"><span class="event-dot"></span> Failed</span>
+              {% endif %}
+            </td>
+            <td>
+              {% if event['event'] == 'success' %}Successful sign-in
+              {% elif event['event'] == 'locked' %}Sign-in blocked by lockout
+              {% elif event['event'] == 'logout' %}Signed out
+              {% elif event['event'] == 'two_factor_failure' %}Two-factor code rejected
+              {% else %}Unsuccessful sign-in{% endif %}
+            </td>
+            <td class="event-time">{{ event['created_at'].replace('T', ' ')[:19] if event['created_at'] else '&mdash;' }}</td>
+            <td class="event-time">{{ event['ip_address'] if event['ip_address'] else '—' }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <div class="empty-activity">
+      <span class="empty-icon" aria-hidden="true">{{ icon('refresh', 22) }}</span>
+      <strong>No sign-in activity yet</strong>
+      <p>New events for this account will appear here.</p>
+    </div>
+  {% endif %}
+  <p class="privacy-note">Only events linked to your own account are shown. Attempts against
+    unknown addresses are not attached to any account.</p>
+</section>
+{% endblock %}
