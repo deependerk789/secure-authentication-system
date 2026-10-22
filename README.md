@@ -1,54 +1,66 @@
 # 🔐 Secure Authentication System
 
 <p align="center">
-  <strong>A secure authentication web application built with Flask and Python.</strong>
+  <img src="https://capsule-render.vercel.app/api?type=rect&color=0:0f172a,100:1d4ed8&height=180&section=header&text=SecureAuth&fontSize=52&fontColor=ffffff&fontAlignY=42&desc=Secure%20Authentication%20with%20Flask&descAlignY=68&descSize=18" width="100%" alt="SecureAuth project banner"/>
 </p>
 
 <p align="center">
-  Password security · Session protection · CSRF protection · Two-factor authentication
+  A Flask-based authentication project focused on password security, protected sessions, CSRF defense and two-factor authentication.
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Python-3.x-blue?logo=python" alt="Python">
-  <img src="https://img.shields.io/badge/Flask-Web%20Framework-black?logo=flask" alt="Flask">
-  <img src="https://img.shields.io/badge/Database-SQLite-blue" alt="SQLite">
-  <img src="https://img.shields.io/badge/Security-2FA-success" alt="2FA">
+  <img src="https://img.shields.io/badge/Python-3.x-3776AB?logo=python&logoColor=white" alt="Python"/>
+  <img src="https://img.shields.io/badge/Flask-Web%20Framework-black?logo=flask" alt="Flask"/>
+  <img src="https://img.shields.io/badge/Database-SQLite-003B57?logo=sqlite&logoColor=white" alt="SQLite"/>
+  <img src="https://img.shields.io/badge/Password%20Hashing-Argon2id-success" alt="Argon2id"/>
+  <img src="https://img.shields.io/badge/Authentication-TOTP-blueviolet" alt="TOTP"/>
 </p>
 
-## 📸 Project Preview
+<p align="center">
+  <a href="https://github.com/deependerk789/secure-authentication-system">📂 Source Code</a>
+  &nbsp; • &nbsp;
+  <a href="https://github.com/deependerk789">👨‍💻 GitHub Profile</a>
+</p>
 
-![Secure Authentication System Screenshot](screenshots/secureauth-preview.png)
+---
 
-> Add a screenshot of your actual login page or dashboard to the `screenshots` folder.
+## 📌 About the Project
 
-## 🚀 About the Project
+**Secure Authentication System** is a web application built using Python and Flask to demonstrate secure user authentication and essential cybersecurity practices.
 
-Secure Authentication System is a Flask-based web application developed to demonstrate authentication security and essential cybersecurity practices. It focuses on protecting user accounts, validating requests, managing sessions and recording authentication activity.
+It focuses on password hashing, session security, CSRF protection, two-factor authentication and authentication audit logging.
 
 ## ✨ Key Features
 
-- 🔑 User authentication and login protection
-- 🔒 Password hashing using Argon2id
-- 🛡️ CSRF protection for forms
-- ⏱️ Signed, time-limited sessions
-- 🔐 Two-factor authentication (TOTP)
-- 📝 Authentication audit logging
-- 📊 Dashboard for security status and configuration
-- 🧪 Automated tests for authentication functionality
-
-## 🛠️ Tech Stack
-
-| Technology | Purpose |
+| Feature | Description |
 |---|---|
-| Python | Application logic |
-| Flask | Web framework |
-| SQLite | Database |
-| Argon2id | Password hashing |
-| TOTP | Two-factor authentication |
-| Pytest | Automated testing |
-| HTML/CSS | Web interface |
+| 🔑 Authentication | User sign-in and authentication flows |
+| 🔒 Argon2id | Secure password hashing |
+| 🛡️ CSRF Protection | Helps protect forms from cross-site request forgery |
+| ⏱️ Session Security | Signed, time-limited sessions |
+| 🔐 Two-Factor Authentication | TOTP-based verification |
+| 📝 Audit Logging | Records authentication activity |
+| 📊 Security Dashboard | Displays security configuration status |
+| 🧪 Automated Tests | Test suite for authentication functionality |
 
-## 💻 Run Locally
+## 🛠️ Technology Stack
+
+<p>
+  <img src="https://skillicons.dev/icons?i=python,flask,sqlite,html,css,git,github" alt="Python Flask SQLite HTML CSS Git GitHub" />
+</p>
+
+- **Language:** Python
+- **Framework:** Flask
+- **Database:** SQLite
+- **Password hashing:** Argon2id
+- **Two-factor authentication:** TOTP
+- **Testing:** Pytest
+
+## 🖼️ Project Preview
+
+The application screenshot will be added here after uploading the actual login page or dashboard image to the repository.
+
+## 🚀 Getting Started
 
 ### 1. Clone the repository
 
@@ -57,7 +69,7 @@ git clone https://github.com/deependerk789/secure-authentication-system.git
 cd secure-authentication-system
 ```
 
-### 2. Create and activate a virtual environment
+### 2. Create a virtual environment
 
 ```powershell
 python -m venv .venv
@@ -72,19 +84,19 @@ pip install -r requirements.txt
 
 ### 4. Configure environment variables
 
-Create your local `.env` file using `.env.example` as a reference. Set the required values for your application.
+Use `.env.example` as a reference and configure the environment variables required by the application.
 
-**Never commit your `.env` file, passwords, secret keys or production credentials.**
+**Never upload `.env` files, passwords or production secrets to GitHub.**
 
-### 5. Start the application
+### 5. Run the application
 
-Use the entry-point command configured in your project. For example, if `app.py` is the entry point:
+Use the entry point configured in the project. If the entry point is `app.py`, run:
 
 ```bash
 python app.py
 ```
 
-Open the local URL printed by Flask in your terminal.
+Open the local address displayed in the terminal.
 
 ### 6. Run tests
 
@@ -94,21 +106,30 @@ python -m pytest -q
 
 ## 🌐 Live Demo
 
-**Status:** Coming soon — deployment and production database configuration are pending.
+🚧 **Deployment in progress**
 
-- **Live Application:** To be added after deployment.
-- **Source Code:** [View on GitHub](https://github.com/deependerk789/secure-authentication-system)
+The production deployment and database configuration are not yet confirmed.
 
-## 🎯 Learning Objectives
+- **Live application:** Coming soon
+- **Repository:** [Secure Authentication System](https://github.com/deependerk789/secure-authentication-system)
 
-This project demonstrates practical implementation of password security, session management, CSRF protection, multi-factor authentication and authentication testing.
+## 🎯 Learning Outcomes
+
+This project demonstrates practical concepts related to:
+
+- Secure password storage
+- Authentication and session management
+- CSRF protection
+- Multi-factor authentication
+- Security audit logging
+- Automated testing
 
 ## 🔮 Future Improvements
 
-- PostgreSQL integration for production deployment
-- Cloud deployment with secure environment configuration
+- PostgreSQL integration for production
+- Cloud deployment
+- Improved user interface
 - Additional security testing and monitoring
-- Further improvements to the user interface
 
 ## 👨‍💻 Author
 
@@ -121,5 +142,5 @@ B.Tech Cybersecurity Student
 ---
 
 <p align="center">
-  ⭐ If you find this project useful, consider starring the repository!
+  ⭐ If you find this project interesting, consider starring the repository!
 </p>
