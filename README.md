@@ -103,15 +103,15 @@ Open the local address displayed in the terminal.
 ```bash
 python -m pytest -q
 ```
-
 ## 🌐 Live Demo
 
-🚧 **Deployment in progress**
+🚀 **Status: Deployed on Render**
 
-The production deployment and database configuration are not yet confirmed.
-
-- **Live application:** Coming soon
+- **Live application:** [🔗 Open SecureAuth](https://secure-authentication-system-1.onrender.com)
 - **Repository:** [Secure Authentication System](https://github.com/deependerk789/secure-authentication-system)
+
+Try the SecureAuth application to explore secure user registration, login, password management, and two-factor authentication.
+
 
 ## 🎯 Learning Outcomes
 
